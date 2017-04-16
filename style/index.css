@@ -390,6 +390,7 @@
 	border:1px solid #ddd;
 	text-align: center;
 	float: left;
+	position: relative;
 }
 
 .pic{
@@ -1727,6 +1728,20 @@ body{
 	content: "\e607";
 }
 /*下拉框end*/
+/*附件*/
+.certificate .chuana{
+	position: relative;
+}
+
+input.certiFile{
+	position: absolute;
+	left: 0;
+	top:0;
+	opacity: 0;
+	z-index: 1003;
+	width: 100%;
+	height: 0;
+}
 
 .mastvt a.not-allowed{
 	color: #ccc;

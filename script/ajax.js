@@ -461,7 +461,7 @@ $('.chuanpoll .baocun a:last').click(function () {
     },2000);
 });
 
-//下拉选择  支数  品牌
+//下拉选择 公用  支数  品牌
 $(document).on('click','.selectDiv .selectBtn',function () {//点击按钮
     $(this).parent().find('.selectBox').toggleClass('cur');
 }).on('click','.selectDiv .selectBox p,.selectDiv .selectBox span',function () {//选择
@@ -470,6 +470,8 @@ $(document).on('click','.selectDiv .selectBtn',function () {//点击按钮
     var parents_ = _this.parent().parent();
     parents_.find('.selectInp').val(chosedVal);
     parents_.find('.selectBtn').trigger('click');
+}).on('focus','.selectDiv .selectInp',function(){
+    $(this).parent().find('.selectBox').toggleClass('cur');
 });
 
 
@@ -651,6 +653,8 @@ $('.mastvt a').click(function(){
     //$(this).hide();
     $(this).parent().parent().parent().find('.bianlabox').addClass('cur');//显示输入div
     $(this).parent().parent().parent().find('.zanwubox').hide(); //暂无隐藏
+
+    $(this).parent().parent().parent().find('.bianlabox input').val('');//清空
 });
 
 /**   新增或编辑公司信息
@@ -658,7 +662,7 @@ $('.mastvt a').click(function(){
  *  fax 传真provAddr 地址 省     detailAddress 详细地址  postCode 邮编
  *
  */
-//公司信息 保存新增
+//公司信息 保存新增  todo  bug 没有填完信息也能保存
 $('.compBasic .baocun a.cur').click(function(){
     var compName =  $.trim($('.compBasic .compName').val());
     $('.rightitem h2').text(compName);//公司名称
@@ -667,7 +671,8 @@ $('.compBasic .baocun a.cur').click(function(){
         $('.leftitem  a img').attr('src',img);//图片
     }
     var _error = '';
-    $('.sixmall form .inpubox ul li input').each(function () {
+    var param = {};
+    $('.compBasic .qimallsat  input,.compBasic .qimallsat  textarea').each(function () {
         var _this  = $(this);
         var val = $.trim(_this.val());
         if(!!val){
@@ -675,60 +680,64 @@ $('.compBasic .baocun a.cur').click(function(){
             _error = true;
         }else{
             _error = false;
-            return;
         }
     });
-    console.log(param);
+    //console.log(param);
     console.log(_error);
     if( _error == false){
         alert('请输入完整信息！');
+        $(this).parents('.bianlabox').show();
+        $(this).parents('.pastmall').find('.xianboxpl').hide();
         return false;
     }else{
+        var desc = $('.liuyan ').val();//简介
+        var compType = $('.compType').val();//类型
+        var busMode = $.trim($('.busMode') .val());
+        var startTime = $.trim($('.startTime') .val());
+        var turnover = $.trim($('.turnover') .val());
+        var legalPerson = $.trim($('.legalPerson') .val());
+        var sexuality = $.trim($('.sexuality') .val());
+        var phoneMumber = $.trim($('.phoneMumber') .val());
+        var fax = $.trim($('.fax') .val());
+        var compUrl = $.trim($('.compUrl').val());
+        var postCode = $.trim($('.postCode') .val());
 
+        var provAddr = $.trim($('.provAddr') .val());//省
+        var cityAddr = $.trim($('.cityAddr') .val());//市
+        var areaAddr = $.trim($('.areaAddr') .val());//区
+
+        var detailAddress = $.trim($('.detailAddress') .val());
+
+        $('.zhanul ul:eq(0) li').eq(0).text(legalPerson); //法人
+        $('.zhanul ul:eq(0) li').eq(1).text(sexuality); //性别
+        $('.zhanul ul:eq(0) li').eq(2).text(compType); //类型
+        $('.zhanul ul:eq(0) li').eq(3).text(busMode); //模式
+        $('.zhanul ul:eq(0) li').eq(4).text(); //规模 TODO ??哪里来的
+        $('.zhanul ul:eq(0) li').eq(5).find('span').text(startTime); //开始时间
+        $('.zhanul ul:eq(0) li').eq(6).find('span').text(turnover); //营业额
+        //以下是第二个列表
+        $('.zhanul ul:eq(1) li').eq(0).find('span:eq(0)').text(phoneMumber); //电话
+        $('.zhanul ul:eq(1) li').eq(0).find('span:eq(1)').text(fax); //传真
+        $('.zhanul ul:eq(1) li').eq(1).text(compUrl); //网址
+
+
+        $('.zhanul ul:eq(1) li').eq(2).text(provAddr + cityAddr + areaAddr + detailAddress); //详细地址
+
+        $('.zhanul ul:eq(1) li').eq(3).text(postCode); //邮编
+        $('.shaobxo p').text(desc);//简介
+
+        //品牌 todo  保存在何处？
+        var brandArr = [];
+        $('.bootttian .putian').each(function(){
+            var brand = $.trim($(this).find('input').val());
+            brandArr.push(brand);
+        });
+
+        $(this).parents('.bianlabox').removeClass('cur');
+        $(this).parents('.pastmall').find('.xianboxpl').show();
+        $(this).parents().find('.mastvt a').removeClass('not-allowed');
+        informFunc('保存成功！');
     }
-
-    var desc = $('.liuyan ').val();//简介
-    var compType = $('.compType').val();//类型
-    var busMode = $.trim($('.busMode') .val());
-    var startTime = $.trim($('.startTime') .val());
-    var turnover = $.trim($('.turnover') .val());
-    var legalPerson = $.trim($('.legalPerson') .val());
-    var sexuality = $.trim($('.sexuality') .val());
-    var phoneMumber = $.trim($('.phoneMumber') .val());
-    var fax = $.trim($('.fax') .val());
-    var compUrl = $.trim($('.compUrl').val());
-    var postCode = $.trim($('.postCode') .val());
-
-    var provAddr = $.trim($('.provAddr') .val());//省
-    var cityAddr = $.trim($('.cityAddr') .val());//市
-    var areaAddr = $.trim($('.areaAddr') .val());//区
-
-    var detailAddress = $.trim($('.detailAddress') .val());
-
-    $('.zhanul ul:eq(0) li').eq(0).text(legalPerson); //法人
-    $('.zhanul ul:eq(0) li').eq(1).text(sexuality); //性别
-    $('.zhanul ul:eq(0) li').eq(2).text(compType); //类型
-    $('.zhanul ul:eq(0) li').eq(3).text(busMode); //模式
-    $('.zhanul ul:eq(0) li').eq(4).text(); //规模 TODO ??哪里来的
-    $('.zhanul ul:eq(0) li').eq(5).find('span').text(startTime); //开始时间
-    $('.zhanul ul:eq(0) li').eq(6).find('span').text(turnover); //营业额
-    //以下是第二个列表
-    $('.zhanul ul:eq(1) li').eq(0).find('span:eq(0)').text(phoneMumber); //电话
-    $('.zhanul ul:eq(1) li').eq(0).find('span:eq(1)').text(fax); //传真
-    $('.zhanul ul:eq(1) li').eq(1).text(compUrl); //网址
-
-
-    $('.zhanul ul:eq(1) li').eq(2).text(provAddr + cityAddr + areaAddr + detailAddress); //详细地址
-
-    $('.zhanul ul:eq(1) li').eq(3).text(postCode); //邮编
-    $('.shaobxo p').text(desc);//简介
-
-    //品牌 todo  保存在何处？
-    var brandArr = [];
-    $('.bootttian .putian').each(function(){
-        var brand = $.trim($(this).find('input').val());
-        brandArr.push(brand);
-    });
 
 });
 
@@ -785,7 +794,7 @@ $('.compBasic .showtextx1').click(function(){
     $('.detailAddress') .val(detailAddress);
 });
 
-/**删除信息  todo
+/**删除信息
  *
  */
 //删除 公司信息
@@ -802,8 +811,8 @@ $('.compBasic .showtext').click(function(){
     informFunc('删除成功！');
 });
 
-//新增联系人 保存  todo  Bug: 新增删除后再第二次新增就新增不了
-$('.contacts .baocun .cur').click(function(){
+//保存联系人 新增 编辑
+$('.contacts .baocun a.cur').click(function(){
     //获取添加信息
     var param = {};
     var _error = '';
@@ -824,53 +833,85 @@ $('.contacts .baocun .cur').click(function(){
         alert('请输入完整信息！');
         return false;
     }else{
-        var $contact = '<ul class="colorul"> <li style="width:80px;">'+ param.contact +'</li> <li style="width:80px;">'+ param.position +'</li> ' +
-            '<li style="width:80px;">'+param.number+'</li> <li style="width:110px;">'+param.cellphone+'</li> <li style="width:80px;">'+param.fox+'</li>' +
-            ' <li style="width:180px;">'+param.email+'</li> <li style="width:100px;">'+param.qq+'</li> ' +
-            '<li style="width:100px;">'+param.microMsg+'</li> <li class="last" style="width:80px;"> ' +
-            '<em class="iconfont showtextx1 icon-x_shuxie"></em> <em class="last showtext iconfont icon-shanchu3"></em> </li> <div class="cl"></div> </ul>';
-        $('.contacts .biaobox ').append($contact);
+        var $selected = $('ul.colorul.selected ');
+        //编辑
+        if($selected.size()>=1){
+            var index = $selected.index();
+            var i = $selected.data('i');
+            var $contact = '<ul class="colorul " data-id="'+i+'"> <li style="width:80px;">'+ param.contact +'</li> <li style="width:80px;">'+ param.position +'</li> ' +
+                '<li style="width:80px;">'+param.number+'</li> <li style="width:110px;">'+param.cellphone+'</li> <li style="width:80px;">'+param.fox+'</li>' +
+                ' <li style="width:180px;">'+param.email+'</li> <li style="width:100px;">'+param.qq+'</li> ' +
+                '<li style="width:100px;">'+param.microMsg+'</li> <li class="last" style="width:80px;"> ' +
+                '<em class="iconfont showtextx1 icon-x_shuxie"></em> <em class="last showtext iconfont icon-shanchu3"></em> </li> <div class="cl"></div> </ul>';
+            $selected.prev().after($contact);
+            $selected.remove();
+            informFunc('编辑成功！');
+        }else{
+            //新增
+            var $contact = '<ul class="colorul" data-id=""> <li style="width:80px;">'+ param.contact +'</li> <li style="width:80px;">'+ param.position +'</li> ' +
+                '<li style="width:80px;">'+param.number+'</li> <li style="width:110px;">'+param.cellphone+'</li> <li style="width:80px;">'+param.fox+'</li>' +
+                ' <li style="width:180px;">'+param.email+'</li> <li style="width:100px;">'+param.qq+'</li> ' +
+                '<li style="width:100px;">'+param.microMsg+'</li> <li class="last" style="width:80px;"> ' +
+                '<em class="iconfont showtextx1 icon-x_shuxie"></em> <em class="last showtext iconfont icon-shanchu3"></em> </li> <div class="cl"></div> </ul>';
+            $('.contacts .biaobox ').append($contact);
+            informFunc('添加成功！');
+        }
+
         $(this).parents('.pastmall').find('.xianboxpl').show();
         $('.contacts .biaobox').show();
         // $('.contacts .xianboxpl').show();
         $(this).parents('.bianlabox').removeClass('cur');
         $(this).parents().find('.mastvt a').removeClass('not-allowed');
-        informFunc('添加成功！');
+
     }
 
 });
 
-//编辑联系人  todo
-$('.contacts .showtextx1').click(function() {
+//编辑联系人  $('ul.colorul')  todo
+$(document).on('click','.contacts .showtextx1',function() {
     $(this).parents('.pastmall').find('.zanwubox').hide();
     // $(this).parents('.pastmall').find('.mastvt a').hide();
+
     $(this).parents('.pastmall').find('.mastvt a').removeClass('not-allowed');
     $(this).parents('.pastmall').find('.xianboxpl').hide();
     $(this).parents('.pastmall').find('.bianlabox').addClass('cur');
-
+    var $ul = $(this).parent().parent();
+    $ul.addClass('selected').siblings().removeClass('selected'); //标记已选中 编辑
     //获取信息添加到编辑div
-   // $('')
+
 
 });
-//取消新增
+
+//取消
 $('.setext').click(function(){
     // $(this).parents().find('.mastvt a').show();
     if($(this).parentsUntil('.inmertext').hasClass('compBasic')){//公司信息的新增按钮要显示
         $(this).parents().find('.mastvt a').show();
+        $(this).parents().find('.zanwubox').show();
     }else{
         $(this).parents().find('.mastvt a').removeClass('not-allowed');
     }
+    //一个也没有则显示暂无
+    if($(this).parentsUntil('.inmertext').hasClass('contacts')){//联系人
+        if($('.colorul').size()<1){
+            $(this).parents().find('.zanwubox').show();
+        }else{
+            $(this).parents().find('.zanwubox').hide();
+        }
+    }
+    if($(this).parentsUntil('.inmertext').hasClass('certificate')){ //荣誉
+        alert($('.certificate .xianboxpl .zhizhao ul li').size());
+        if($('.certificate .xianboxpl .zhizhao ul li').size()<1){
+            $('.certificate .zanwubox').show();
+        }else{
+            $('.certificate .zanwubox').hide();
+            $('.certificate .xianboxpl').show();
+        }
+    }
+    $(this).parents('.bianlabox').removeClass('cur');
+    $('.sixmall form .inpubox ul li input').val('');//清空
+});
 
-    $(this).parents().find('.zanwubox').show();
-    $(this).parents('.bianlabox').removeClass('cur');
-});
-//保存新增 公司信息
-$('.compBasic .baocun a.cur').click(function(){
-    $(this).parents('.bianlabox').removeClass('cur');
-    $(this).parents('.pastmall').find('.xianboxpl').show();
-    $(this).parents().find('.mastvt a').removeClass('not-allowed');
-    informFunc('保存成功！');
-});
 
 //删除联系人
 $(document).on('click','.contacts .showtext',function() {
@@ -883,17 +924,43 @@ $(document).on('click','.contacts .showtext',function() {
     informFunc('删除成功！');
 });
 
+/**荣誉证书
+ *
+ */
+//点击 上传图片
+$('.certificate .chuana').click(function () {
+    $(this).find('input[type=file]').trigger('click');
+});
+//上传图片
+$('.certificate .chuana input').change(function () {
+    var val = $(this).val();
+    $(this).parent().prev().val(val);
+    var objUrl = getObjectURL(this.files[0]);
+    alert(this.files[0]);
+});
+
 //保存新增 荣誉  todo
 $('.certificate .baocun a.cur').click(function(){
+    alert(111);
+    /*$('.certificate .chuana input[type=file]').each(function () {
+        var val = $(this).val();
+        $(this).parent().prev().val(val);
+        var objUrl = getObjectURL(this.files[0]);
+        alert(this.files[0]);
+    });*/
+
+   /* var $li = '<li> <div class="pic"> <a href="#"><img src="'+img+'" alt=""></a> <div class="zhezhao">' +
+        '<span>删除</span></div> </div> <p class="rshubox">营业执照</p> </li>';
+
+    $('.certificate .xianboxpl ul').append($li);
     $(this).parents('.bianlabox').removeClass('cur');
     $(this).parents('.pastmall').find('.xianboxpl').show();
     $(this).parents().find('.mastvt a').removeClass('not-allowed');
-    informFunc('保存成功！');
+    informFunc('保存成功！');*/
 });
 
 
-
-
+//删除 荣誉
 
 
 
