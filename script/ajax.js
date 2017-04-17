@@ -446,7 +446,7 @@ $(document).on('click','.selectDiv .selectBtn',function () {//点击按钮
     parents_.find('.selectInp').val(chosedVal);
     parents_.find('.selectBtn').trigger('click');
 }).on('focus','.selectDiv .selectInp',function(){
-    $(this).parent().find('.selectBox').toggleClass('cur');
+    $(this).parent().parent().find('.selectBtn').trigger('click');
 });
 
 
@@ -495,7 +495,16 @@ $(window).on("scroll", function(){
     }else{
         $('.huiding').hide();
     }
-    //滚动大于300  显示顶部 只在产品管理
+    if(top>0){
+        ifProdShow();
+    }
+    var top_ = $('.qiemallst ul').offset().top;
+    //console.log(top_);
+});
+
+
+function  ifProdShow() {
+    //滚动  显示顶部 只在产品管理
     if($('.inmaslt ul li:eq(2)').hasClass('cur')){
         $('.top').addClass('topFix');
         $('.topbannx').addClass('topbannxFix');
@@ -515,7 +524,9 @@ $(window).on("scroll", function(){
         $('.chanxinl').removeClass('chanxinlFix');
         $('.fabusha').removeClass('fabushaFix');
     }
-
+}
+//切换页面时候，执行
+$('.inmaslt ul li').click(function(){
 });
 
 //回顶部
@@ -713,7 +724,7 @@ $('.compBasic .baocun a.cur').click(function(){
 
 });
 
-/**编辑信息  TODO
+/**编辑信息
  *
  */
 //公司信息 编辑
@@ -974,4 +985,5 @@ $(function () {
     moveInformFunc($('.chuanpoll'))//价格设置
     moveInformFunc($('.pastmall'))//公司设置弹窗
     getBrandNum();//品牌个数
+    ifProdShow();//产品是否滚屏
 });
