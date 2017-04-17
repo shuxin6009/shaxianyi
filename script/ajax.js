@@ -867,7 +867,14 @@ $(document).on('click','.contacts .showtextx1',function() {
 
 });
 
-//取消
+//取消  价格设置  库存
+$('.chuanpoll .setext,.chuanstvt .setext').on('click',function () {
+    $(this).parent().parent().hide();
+
+});
+
+
+//取消   公司信息 联系人 荣誉
 $('.setext').click(function(){
     // $(this).parents().find('.mastvt a').show();
     if($(this).parentsUntil('.inmertext').hasClass('compBasic')){//公司信息的新增按钮要显示
@@ -898,7 +905,6 @@ $('.setext').click(function(){
     $(this).parents('.bianlabox').removeClass('cur');
     $('.sixmall form .inpubox ul li input').val('');//清空
 });
-
 
 //删除联系人
 $(document).on('click','.contacts .showtext',function() {
