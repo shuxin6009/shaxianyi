@@ -41,10 +41,7 @@ $(document).on('blur','.prod-price:last input',function () {
 //产品价格 删除
 $(document).on('click','.prod-price a.delete',function () {
     $(this).parent().parent().remove();
-    $inform.show().text('删除成功！');
-    setTimeout(function () {
-        $inform.hide();
-    },2000);
+    informFunc('删除成功！');
     checkIfLastOne($('.prod-price'));
 });
 
@@ -106,11 +103,8 @@ function getObjectURL(file) {
 
 //色卡分类 删除
 $(document).on('click','.ul-color .delete',function () {
-    $inform.show().text('删除成功！');
     $(this).parent().parent().remove();
-    setTimeout(function () {
-        $inform.hide();
-    },2000);
+    informFunc('删除成功！');
     checkIfLastOne($('.ul-color'));
 });
 //色卡分类 输入任意一个后 鼠标移开  则新增一列
@@ -234,10 +228,7 @@ $('#prodImg').change(function () {
             var $div = '<li> <a href="#"><img src="'+objUrl+'" alt="" /></a> ' +
                 '<div class="zhezhao zhezhao2"><span>删除</span></div> </li> ';
             $('.xpicmall ul').append($div);
-            $inform.show().text('上传成功！');
-            setTimeout(function () {
-                $inform.hide();
-            },2000);
+            informFunc('上传成功！');
         }
         $('#prodImg').val('');
     },500);
@@ -275,19 +266,13 @@ function MaxImgLen(maxLen) {//限制图片个数
 }
 //删除图片
 $(document).on('click','.zhezhao ',function(){
-    $inform.show().text('删除成功！');
+    informFunc('删除成功！');
     $(this).parent().remove();
-    setTimeout(function () {
-        $inform.hide();
-    },2000);
 });
 
 //点击保存  提示成功
 $('.baocun .save').click(function () {
-    $inform.show().text('保存成功！');
-    setTimeout(function () {
-        $inform.hide();
-    },2000);
+    informFunc('保存成功！');
 });
 
 //成分设置 计算百分比
@@ -419,9 +404,8 @@ $('.tansix1  .save').on('click',function () {
     });
     console.log(compoArr);
     $('.component').val(compoArr);
-    $inform.show().text('保存成功！');
+    informFunc('保存成功！');
     setTimeout(function () {
-        $inform.hide();
         //$('.tansix1').hide();
         $('.kusmax .component').trigger('click');
     },2000);
@@ -429,11 +413,8 @@ $('.tansix1  .save').on('click',function () {
 
 //库存设置弹窗 点击保存
 $('.chuanstvt .baocun a:last').click(function () {
-    $inform.show().text('保存成功！');
+    informFunc('保存成功！');
     $('.chuanstvt').hide();
-    setTimeout(function () {
-        $inform.hide();
-    },2000);
 });
 
 //价格设置 添加一条
@@ -446,19 +427,13 @@ $('.tianpal a').on('click',function () {
 });
 //价格设置 删除
 $(document).on('click','.chuanpoll .setPrice-ul .shanpan',function () {
-    $inform.show().text('删除成功！');
+    informFunc('删除成功！');
     $(this).parent().parent().remove();
-    setTimeout(function () {
-        $inform.hide();
-    },2000);
 });
 //价格设置 保存
 $('.chuanpoll .baocun a:last').click(function () {
-    $inform.show().text('保存成功！');
+    informFunc('保存成功！');
     $('.chuanpoll').hide();
-    setTimeout(function () {
-        $inform.hide();
-    },2000);
 });
 
 //下拉选择 公用  支数  品牌
@@ -502,17 +477,14 @@ function moveInformFunc(obj) {//弹窗拖动
 //产品管理 列表删除一行
 $(document).on('click','.qiemallst li .tanspan2',function () {
     $(this).parent().parent().remove();
-    $inform.show().text('删除成功！');
-    setTimeout(function () {
-        $inform.hide();
-    },2000);
+    informFunc('删除成功！');
 });
 //产品管理 点击编辑 跳转到发布产品
 $(document).on('click','.mast5  .tanspan1',function () {
     $('.inmaslt ul li:eq(1) a').trigger('click');
 });
 
-/**产品管理  滚屏 顶部和左侧栏始终能看见  TODO  footer样式调整
+/**产品管理  滚屏 顶部和左侧栏始终能看见
  *
  */
 $(window).on("scroll", function(){
@@ -524,7 +496,7 @@ $(window).on("scroll", function(){
         $('.huiding').hide();
     }
     //滚动大于300  显示顶部 只在产品管理
-    if(top>=300&&$('.inmaslt ul li:eq(2)').hasClass('cur')){
+    if($('.inmaslt ul li:eq(2)').hasClass('cur')){
         $('.top').addClass('topFix');
         $('.topbannx').addClass('topbannxFix');
         $('.leftnav').addClass('leftnavFix');
@@ -662,7 +634,7 @@ $('.mastvt a').click(function(){
  *  fax 传真provAddr 地址 省     detailAddress 详细地址  postCode 邮编
  *
  */
-//公司信息 保存新增  todo  bug 没有填完信息也能保存
+//公司信息 保存新增
 $('.compBasic .baocun a.cur').click(function(){
     var compName =  $.trim($('.compBasic .compName').val());
     $('.rightitem h2').text(compName);//公司名称
@@ -829,6 +801,11 @@ $('.contacts .baocun a.cur').click(function(){
     });
     console.log(param);
     console.log(_error);
+    var $contact = '<ul class="colorul " data-id="'+i+'"> <li style="width:80px;">'+ param.contact +'</li> <li style="width:80px;">'+ param.position +'</li> ' +
+        '<li style="width:80px;">'+param.number+'</li> <li style="width:110px;">'+param.cellphone+'</li> <li style="width:80px;">'+param.fox+'</li>' +
+        ' <li style="width:180px;">'+param.email+'</li> <li style="width:100px;">'+param.qq+'</li> ' +
+        '<li style="width:100px;">'+param.microMsg+'</li> <li class="last" style="width:80px;"> ' +
+        '<em class="iconfont showtextx1 icon-x_shuxie"></em> <em class="last showtext iconfont icon-shanchu3"></em> </li> <div class="cl"></div> </ul>';
     if( _error == false){
         alert('请输入完整信息！');
         return false;
@@ -838,21 +815,11 @@ $('.contacts .baocun a.cur').click(function(){
         if($selected.size()>=1){
             var index = $selected.index();
             var i = $selected.data('i');
-            var $contact = '<ul class="colorul " data-id="'+i+'"> <li style="width:80px;">'+ param.contact +'</li> <li style="width:80px;">'+ param.position +'</li> ' +
-                '<li style="width:80px;">'+param.number+'</li> <li style="width:110px;">'+param.cellphone+'</li> <li style="width:80px;">'+param.fox+'</li>' +
-                ' <li style="width:180px;">'+param.email+'</li> <li style="width:100px;">'+param.qq+'</li> ' +
-                '<li style="width:100px;">'+param.microMsg+'</li> <li class="last" style="width:80px;"> ' +
-                '<em class="iconfont showtextx1 icon-x_shuxie"></em> <em class="last showtext iconfont icon-shanchu3"></em> </li> <div class="cl"></div> </ul>';
             $selected.prev().after($contact);
             $selected.remove();
             informFunc('编辑成功！');
         }else{
             //新增
-            var $contact = '<ul class="colorul" data-id=""> <li style="width:80px;">'+ param.contact +'</li> <li style="width:80px;">'+ param.position +'</li> ' +
-                '<li style="width:80px;">'+param.number+'</li> <li style="width:110px;">'+param.cellphone+'</li> <li style="width:80px;">'+param.fox+'</li>' +
-                ' <li style="width:180px;">'+param.email+'</li> <li style="width:100px;">'+param.qq+'</li> ' +
-                '<li style="width:100px;">'+param.microMsg+'</li> <li class="last" style="width:80px;"> ' +
-                '<em class="iconfont showtextx1 icon-x_shuxie"></em> <em class="last showtext iconfont icon-shanchu3"></em> </li> <div class="cl"></div> </ul>';
             $('.contacts .biaobox ').append($contact);
             informFunc('添加成功！');
         }
@@ -878,6 +845,13 @@ $(document).on('click','.contacts .showtextx1',function() {
     var $ul = $(this).parent().parent();
     $ul.addClass('selected').siblings().removeClass('selected'); //标记已选中 编辑
     //获取信息添加到编辑div
+    var obj = [];
+    $('.colorul.selected li').not('li:last').each(function () {
+        var _this = $(this);
+        obj.push(_this.text());
+    });
+    console.log(obj);
+
 
 
 });
@@ -894,11 +868,13 @@ $('.setext').click(function(){
     //一个也没有则显示暂无
     if($(this).parentsUntil('.inmertext').hasClass('contacts')){//联系人
         if($('.colorul').size()<1){
-            $(this).parents().find('.zanwubox').show();
+            $('.contacts .zanwubox').show();
         }else{
-            $(this).parents().find('.zanwubox').hide();
+            $('.contacts .zanwubox').hide();
+            $('.contacts .xianboxpl').show();//列表再显示
         }
     }
+
     if($(this).parentsUntil('.inmertext').hasClass('certificate')){ //荣誉
         console.log($('.certificate .xianboxpl .zhizhao ul li').size());
         if($('.certificate .xianboxpl .zhizhao ul li').size()<1){
@@ -939,7 +915,7 @@ $('.certificate .chuana input').change(function () {
    // alert(this.files[0]);
 });
 
-//保存新增 荣誉  todo
+//保存新增 荣誉
 $('.certificate .baocun a.cur').click(function(){
     var  _error = false;
     $('.certificate .chuana input[type=file]').each(function () {
@@ -954,20 +930,31 @@ $('.certificate .baocun a.cur').click(function(){
             _error = true;
             var objUrl = getObjectURL(this.files[0]);
             console.log(this.files[0]);
-            var $li = '<li> <div class="pic"> <a href="#"><img src="'+objUrl+'" alt=""></a> <div class="zhezhao">' +
+            var $li = '<li> <div class="pic"> <a href="javascript:;"><img src="'+objUrl+'" alt=""></a> <div class="delete">' +
                 '<span>删除</span></div> </div> <p class="rshubox">'+picName+'</p> </li>';
             $('.certificate .xianboxpl ul').append($li);
         }
     });
-
-    $(this).parents('.bianlabox').removeClass('cur');
-    $(this).parents('.pastmall').find('.xianboxpl').show();
-    $(this).parents().find('.mastvt a').removeClass('not-allowed');
-    informFunc('保存成功！');
+    if(_error==false){
+        alert('请输入完整信息！');
+    }else{
+        $(this).parents('.bianlabox').removeClass('cur');
+        $(this).parents('.pastmall').find('.xianboxpl').show();
+        $(this).parents().find('.mastvt a').removeClass('not-allowed');
+        informFunc('保存成功！');
+    }
 });
 
-
 //删除 荣誉
+$(document).on('click','.certificate .delete',function () {
+    informFunc('删除成功！');
+    $(this).parent().parent().remove();
+    //视奏显示暂无
+    var li_len = $('.certificate .xianboxpl ul li').size();
+   if(li_len<1){
+       $('.certificate .zanwubox').show();
+   }
+});
 
 function informFunc(txt) {//公用 提示弹窗
     $inform.show().text(txt);
