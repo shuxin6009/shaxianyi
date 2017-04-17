@@ -900,7 +900,7 @@ $('.setext').click(function(){
         }
     }
     if($(this).parentsUntil('.inmertext').hasClass('certificate')){ //荣誉
-        alert($('.certificate .xianboxpl .zhizhao ul li').size());
+        console.log($('.certificate .xianboxpl .zhizhao ul li').size());
         if($('.certificate .xianboxpl .zhizhao ul li').size()<1){
             $('.certificate .zanwubox').show();
         }else{
@@ -936,33 +936,38 @@ $('.certificate .chuana input').change(function () {
     var val = $(this).val();
     $(this).parent().prev().val(val);
     var objUrl = getObjectURL(this.files[0]);
-    alert(this.files[0]);
+   // alert(this.files[0]);
 });
 
 //保存新增 荣誉  todo
 $('.certificate .baocun a.cur').click(function(){
-    alert(111);
-    /*$('.certificate .chuana input[type=file]').each(function () {
-        var val = $(this).val();
-        $(this).parent().prev().val(val);
-        var objUrl = getObjectURL(this.files[0]);
-        alert(this.files[0]);
-    });*/
+    var  _error = false;
+    $('.certificate .chuana input[type=file]').each(function () {
+        var _this = $(this);
+        var val = $.trim(_this.val());
+        _this.parent().prev().val(val);//路径
+        var picName =  $.trim(_this.parent().parent().parent().find('input.lxinputx1').val());//图片描述
+        if(val==''||picName==''){
+            _error = false;
+            return ;
+        }else{
+            _error = true;
+            var objUrl = getObjectURL(this.files[0]);
+            console.log(this.files[0]);
+            var $li = '<li> <div class="pic"> <a href="#"><img src="'+objUrl+'" alt=""></a> <div class="zhezhao">' +
+                '<span>删除</span></div> </div> <p class="rshubox">'+picName+'</p> </li>';
+            $('.certificate .xianboxpl ul').append($li);
+        }
+    });
 
-   /* var $li = '<li> <div class="pic"> <a href="#"><img src="'+img+'" alt=""></a> <div class="zhezhao">' +
-        '<span>删除</span></div> </div> <p class="rshubox">营业执照</p> </li>';
-
-    $('.certificate .xianboxpl ul').append($li);
     $(this).parents('.bianlabox').removeClass('cur');
     $(this).parents('.pastmall').find('.xianboxpl').show();
     $(this).parents().find('.mastvt a').removeClass('not-allowed');
-    informFunc('保存成功！');*/
+    informFunc('保存成功！');
 });
 
 
 //删除 荣誉
-
-
 
 function informFunc(txt) {//公用 提示弹窗
     $inform.show().text(txt);

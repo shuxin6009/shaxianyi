@@ -518,7 +518,7 @@
 										<ul>
 											<li class="rbdn">
 												<label for="male">附件1名称<em>*</em></label>
-									 			 <input class="lxinputx1" value="营业执照" type="text" name="" >
+									 			 <input class="lxinputx1" value="营业执照" type="text" name="picName" >
 											</li>
 											<li class="lbdn">
 												<label for="male">上传图片</label>
@@ -529,8 +529,8 @@
 												 </a>
 											</li>
 											<li class="rbdn">
-												<label for="male">附件1名称<em>*</em></label>
-									 			 <input class="lxinputx1" type="text" name="" >
+												<label for="male">附件2名称<em>*</em></label>
+									 			 <input class="lxinputx1" type="text" name="picName" >
 											</li>
 
 											<li class="lbdn">
@@ -563,21 +563,7 @@
 								<div class="pasamoll">
 									<div class="zhizhao">
 										<ul>
-											<li>
-												<div class="pic">
-													<a href="#"><img src="images/zx1.jpg" alt=""></a>
-													<div class="zhezhao"><span>删除</span></div>
-												</div>
-												<p class="rshubox">营业执照</p>
-											</li>
-
-											<li>
-												<div class="pic">
-													<a href="#"><img src="images/zx2.jpg" alt=""></a>
-													<div class="zhezhao"><span>删除</span></div>
-												</div>
-												<p class="rshubox">荣誉证书</p>
-											</li>
+											<!--js根据需要动态添加-->
 										</ul>
 										<div class="cl"></div>
 									</div>
@@ -587,285 +573,10 @@
 								<!-- 保存后显示end -->
 								<div class="cl"></div>
 							</div>
-
-
-<!-- 							<div class="biansix">
-								<div class="mallsvt">
-									<div class="titlems fl">联系人</div>
-									<div class="fr mastvt">
-										<a href="#"><em class="iconfont icon-jiahao1"></em>新增联系人</a>
-									</div>
-									<div class="cl"></div>
-								</div>
-								<div class="cl"></div>
-
-								<div class="zanwubox">
-									<span><em class="iconfont icon-tanhao"></em>暂无信息</span>
-								</div>
-								<div class="cl"></div>
-							</div>
-
-							<div class="biansix">
-								<div class="mallsvt">
-									<div class="titlems fl">荣誉证书</div>
-									<div class="fr mastvt">
-										<a href="#"><em class="iconfont icon-jiahao1"></em>新增荣誉</a>
-									</div>
-									<div class="cl"></div>
-								</div>
-								<div class="cl"></div>
-
-								<div class="zanwubox">
-									<span><em class="iconfont icon-tanhao"></em>暂无信息</span>
-								</div>
-								<div class="cl"></div>
-							</div> -->
 						
 							<div class="cl"></div>
 						</div>
 
-
-
-
-						<!-- <div class="itembox">
-							<div class="mallsvt">
-								<div class="titlems">公司信息</div>
-							</div>
-
-							<div class="gbmall">
-								<div class="shanbox fr">
-									<em class="iconfont icon-x_shuxie"></em>
-									<em class="last iconfont icon-shanchu3"></em>
-								</div>
-								<div class="cl"></div>
-
-								<div class="main_item">
-
-									<div class="top_item">
-										<div class="leftitem fl">
-											<a href="#"><img src="images/mx2.jpg" alt="" /></a>
-										</div>
-
-										<div class="rightitem fr">
-											<h2>纱线纺织有限公司</h2>
-
-											<div class="zhanul">
-												<ul>
-													<li>王小五</li>
-													<li>男</li>
-													<li>民营</li>
-													<li>生产模式</li>
-													<li>1000-1999人</li>
-													<li>成立2014/10/08</li>
-													<li class="last">年营业额 6848万</li>
-													<div class="cl"></div>
-												</ul>
-												<div class="cl"></div>
-												<ul>
-													<li>021-124545/255446</li>
-													<li>www.cyhjjsa.com</li>
-													<li>上海市普陀区中山北路121111弄252</li>
-													<li class="last">200006</li>
-													<div class="cl"></div>
-												</ul>
-												<div class="cl"></div>
-											</div>
-										</div>
-									</div>
-									<div class="cl"></div>
-
-									<div class="shaobxo">
-										<p>江苏鹿港文化股份有限公司创建于一九九三年，股票代码：601599。纺织主业专注生产各类针织纱线、高档精纺呢绒面料以及西装衬衫服装，年产各类无结毛纱40000吨，高档精纺面料1000万米，西服100万套、衬衫200万件。</p>
-									</div>
-								</div>
-								<div class="cl"></div>
-							</div>
-
-							<div class="mallsvt">
-								<div class="titlems fl">联系人</div>
-								<div class="fr mastvt">
-									<a href="#"><em class="iconfont icon-jiahao1"></em>新增联系人</a>
-								</div>
-								<div class="cl"></div>
-							</div>
-
-							<div class="hotmall">
-
-								<div class="sixmall">
-									<form action="">
-									<div class="inpubox">
-										<ul>
-											<li>
-												 <label for="male">联系人</label>
-									 			 <input class="lxinput" type="text" name="sex" id="male" />
-											</li>
-											<li>
-												<label for="female">性 别 </label>
-												<input class="lxinput"  type="text" name="sex" id="female" />
-												<span class="xialap iconfont icon-xiasanjiao-copy"></span>
-
-												<div class="xialabox" id="pu1">
-													<p>男</p>
-													<p>女</p>
-												</div>
-											</li>
-											<li>
-												 <label for="female">职 位</label>
-												 <input class="lxinput" type="text" name="sex" id="sex" />
-												 <span class="xialap iconfont icon-xiasanjiao-copy"></span>
-
-												 <div class="xialabox" id="pu1">
-													<p>老师</p>
-													<p>工程师</p>
-													<p>学生</p>
-													<p>司机</p>
-													<p>自由职业</p>
-												</div>
-											</li>
-											<li>
-												<label for="female">电 话</label>
-									 			 <input class="lxinput" type="text" name="sex"  />
-											</li>
-											<li>											  
-											  <label for="female">手 机</label>
-											  <input class="lxinput" type="text" name="sex"  />
-											</li>
-											<li>
-												 <label for="female">传 真</label>
-									 			 <input class="lxinput" type="text" name="sex" />
-											</li>
-											<li>										
-											  <label for="female">邮 箱</label>
-											  <input class="lxinput" type="text" name="sex" />
-											</li>
-											<li>		
-											  <label for="female">QQ</label>
-											  <input class="lxinput" type="text" name="sex" />
-											</li>
-											<li>
-												 <label for="female">微 信</label>
-									 			 <input class="lxinput" type="text" name="sex" />
-											</li>
-										</ul>
-									</div>
-
-									<div class="cl"></div>
-
-									<div class="baocun">
-										<a class="cur" href="#">保存</a>
-										<a href="#">取消</a>
-									</div>
-									</form>
-								</div>
-								<div class="cl"></div>
-
-								<div class="biaobox">
-									<ul>
-										<li style="width:76px;">联系人</li>
-										<li style="width:76px;">职位</li>
-										<li style="width:76px;">电话</li>
-										<li style="width:110px;">手机</li>
-										<li style="width:76px;">传真</li>
-										<li style="width:176px;">邮箱</li>
-										<li style="width:92px;">QQ</li>
-										<li style="width:96px;">微信</li>
-										<li style="width:60px;">操作</li>
-										<div class="cl"></div>
-									</ul>
-									<ul class="colorul">
-										<li  style="width:76px;">欧阳红梅</li>
-										<li  style="width:76px;">销售经理</li>
-										<li  style="width:76px;">5648556</li>
-										<li  style="width:110px;">13752145156</li>
-										<li  style="width:76px;">5648556</li>
-										<li  style="width:176px;">sufskKKKKfue@126.com</li>
-										<li  style="width:92px;">565548556</li>
-										<li  style="width:96px;">hsjdhwesk</li>
-										<li class="last"  style="width:60px;">
-											<em class="iconfont icon-x_shuxie"></em>
-											<em class="last iconfont icon-shanchu3"></em>
-										</li>
-										<div class="cl"></div>
-									</ul>
-									<div class="cl"></div>
-								</div>
-
-								<div class="cl"></div>
-							</div>
-
-							<div class="mallsvt">
-								<div class="titlems fl">荣誉证书</div>
-								<div class="fr mastvt">
-									<a href="#"><em class="iconfont icon-jiahao1"></em>新增荣誉</a>
-								</div>
-								<div class="cl"></div>
-							</div>
-
-							<div class="hotmall">
-
-								<div class="sixmall">
-									<form action="">
-
-									<div class="fujianbox">
-										<ul>
-											<li class="rbdn">
-												<label for="male">附件1名称<em>*</em></label>
-									 			 <input class="lxinputx1"value="营业执照" type="text" name="sex" id="male" />
-											</li>
-
-											<li class="lbdn">
-												<label for="male">上传图片</label>
-									 			 <input class="lxinputx1" value="...img/jinn.jpg" type="text" name="sex" id="male" />
-									 			 <a class="chuana" href="#">上传图片</a>
-											</li>
-
-											<li class="rbdn">
-												<label for="male">附件1名称<em>*</em></label>
-									 			 <input class="lxinputx1" type="text" name="sex" id="male" />
-											</li>
-
-											<li class="lbdn">
-												<label for="male">上传图片</label>
-									 			 <input class="lxinputx1" type="text" name="sex" id="male" />
-									 			 <a class="chuana" href="#">上传图片</a>
-											</li>
-											<div class="cl"></div>
-										</ul>
-										<div class="cl"></div>
-									</div>
-
-									<div class="cl"></div>
-
-									<div class="baocun">
-										<a class="cur" href="#">保存</a>
-										<a href="#">取消</a>
-									</div>
-									</form>
-								</div>
-								<div class="cl"></div>
-
-								<div class="zhizhao">
-									<ul>
-										<li>
-											<div class="pic">
-												<a href="#"><img src="images/zx1.jpg" alt="" /></a>
-												<div class="zhezhao"><span>删除</span></div>
-											</div>
-											<p class="rshubox">营业执照</p>
-										</li>
-
-										<li>
-											<div class="pic">
-												<a href="#"><img src="images/zx2.jpg" alt="" /></a>
-												<div class="zhezhao"><span>删除</span></div>
-											</div>
-											<p class="rshubox">荣誉证书</p>
-										</li>
-									</ul>
-									<div class="cl"></div>
-								</div>
-							</div>
-						</div> -->
 						<div class="cl"></div>
 					</div>
 					<!-- 设置切换end -->
