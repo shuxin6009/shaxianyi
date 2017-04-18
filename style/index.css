@@ -1598,6 +1598,9 @@ input.jump-ipt{
 /*分页插件修改end*/
 
 /*滚屏*/
+.qiemallstFix{
+	margin-top:250px;
+}
 .qiemallst ul {
 	height: 994px;
 	overflow-y:hidden;
@@ -1608,7 +1611,7 @@ body{
 }
 .filterBox {
 	width: 930px;
-	height: 257px;
+	height: 220px;
 	margin-top: 0;
 	background: #fff;
 }

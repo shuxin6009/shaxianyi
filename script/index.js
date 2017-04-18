@@ -40,17 +40,8 @@ $(document).ready(function(){
 		$('.qiebox').eq(ms).addClass('cur').siblings('.qiebox').removeClass('cur');
 	});
 
-
-	$('.tanspan3').click(function(){
-		$('.chuanpoll').show();
-	});
-
 	$('.hidesp').click(function(){
 		$('.chuanpoll').hide();
-	});
-
-	$('.tanspan4').click(function(){
-		$('.chuanstvt').show();
 	});
 
 	$('.hidesp2').click(function(){

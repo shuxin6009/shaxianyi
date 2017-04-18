@@ -21,22 +21,25 @@ $('.M-box3').pagination({
 
 //产品价格 输入任意一个后 鼠标移开  则新增一列
 $(document).on('blur','.prod-price:last input',function () {
+});
+
+function priceAdd(){
+    //产品价格 输入任意一个后 点击回车  输入框全不为空则新增一列
     var $ul = '<ul class="prod-price"> <li style="width:450px;">' +
         ' <input class="ifonput fl " type="text" name="section1" value="" /> ' +
         '<span class="fl zhispan">至</span> <input class="ifonput fl " type="text"  name="section2" value="" /> </li> ' +
         '<li style="width:222px;"> <input style="width:130px;" class="ifonput " type="text"  name="section3" value="" /> ' +
         '<a class="delete ">删除</a></li> <div class="cl"></div> </ul>';
-    var _this = $(this);
-    var ul_ =  _this.parent().parent();
+    var ul_ =  $('.prod-price:last ');
     console.log(ul_);
     var sectVal_1 =  $.trim(ul_.find('input').eq(0).val());
     var sectVal_2 =  $.trim(ul_.find('input').eq(1).val());
     var sectVal_3 =  $.trim(ul_.find('input').eq(2).val());
-    if(sectVal_1!==''||sectVal_2!==''||sectVal_3!==''){
+    if(sectVal_1!==''&&sectVal_2!==''&&sectVal_3!==''){
         ul_.after($ul);
         checkIfLastOne($('.prod-price'));
     }
-});
+}
 
 //产品价格 删除
 $(document).on('click','.prod-price a.delete',function () {
@@ -47,10 +50,13 @@ $(document).on('click','.prod-price a.delete',function () {
 
 $(document).on('keydown',function () {
     if (event.keyCode==13){  //回车键的键值为13
-        $('.prod-price:last input').trigger('blur');//产品价格 输入任意一个后  点击回车键 也新增一列
-        $('.ul-color:last input[type=text]').trigger('blur');//色卡分类
+        priceAdd();//产品价格 全部输入后  点击回车键 也新增一列
+        colorAdd();//色卡分类 全部输入后  点击回车键 也新增一列
+        componentAdd();//成分明细 全部输入后  点击回车键 也新增一列
 
-        $('.tansix1  ul li:last input[type=text]').trigger('blur');//成分明细 显示则也添加
+       // $('.prod-price:last input').trigger('blur');//产品价格  点击回车键 也新增一列
+       // $('.ul-color:last input[type=text]').trigger('blur');//色卡分类
+      //  $('.tansix1  ul li:last input[type=text]').trigger('blur');//成分明细 显示则也添加
     }
 });
 
@@ -86,7 +92,7 @@ $(document).on('change','.ul-color input[type=file]',function () {
         var $div = '<div class="infopic fl"><img src="'+objUrl+'" alt="" /></div> ';
         $(this).parent().parent().after($div);
     }
-    $('.ul-color:last input[type=text]').trigger('blur');
+    //$('.ul-color:last input[type=text]').trigger('blur');  //是否添加一行
 });
 //从电脑选取文件的url
 function getObjectURL(file) {
@@ -108,9 +114,10 @@ $(document).on('click','.ul-color .delete',function () {
     checkIfLastOne($('.ul-color'));
 });
 //色卡分类 输入任意一个后 鼠标移开  则新增一列
-// TODO bug：blur事件和 点击删除事件会同时进行
 $(document).on('blur','.ul-color:last input[type=text]',function () {
-
+});
+function colorAdd() {
+    //色卡分类 输入任意一个后 回车 全不为空 则新增一列
     var $ul = '<ul class="ul-color"> <li style="width:163px;"> <input class="ifonput" type="text" /> </li> ' +
         '<li style="width:143px;"> <input style="width:130px;" class="ifonput" type="text" /> </li>' +
         ' <li style="width:102px;"> <input style="width:92px;" class="ifonput" type="text" /> </li> ' +
@@ -118,17 +125,18 @@ $(document).on('blur','.ul-color:last input[type=text]',function () {
         '<div class="cl"></div> </ul>';
 
     var _this = $(this);
-    var ul_ =  _this.parent().parent();
+    var ul_ =  $('.ul-color:last ');
     console.log(ul_);
     var sectVal_1 =  $.trim(ul_.find('input').eq(0).val());
     var sectVal_2 =  $.trim(ul_.find('input').eq(1).val());
     var sectVal_3 =  $.trim(ul_.find('input').eq(2).val());
-    var sectVal_4 =  $.trim(ul_.find('input').eq(3).val());
-    if(sectVal_1!==''||sectVal_2!==''||sectVal_3!==''||sectVal_4!==''){
+   // var sectVal_4 =  $.trim(ul_.find('input').eq(3).val());
+    var img_size = ul_.find('.infopic img').size();//图片是否上传
+    if(sectVal_1!==''&&sectVal_2!==''&&sectVal_3!=='' && img_size>=1){
         ul_.after($ul);
         checkIfLastOne($('.ul-color'));
     }
-});
+}
 //色卡分类 最后一行 不能删除 变成清除内容的清除按钮 shanpan
 function checkIfLastOne(obj) {
     console.log('obj'+obj);
@@ -275,29 +283,46 @@ $('.baocun .save').click(function () {
     informFunc('保存成功！');
 });
 
-//成分设置 计算百分比
+//成分设置 计算百分比 不为0
 $(document).on('keyup','.tansix1  ul li input.compo-per',function(){
     var val = $.trim($(this).val());
     if(val!==''&&!/^(\d)*$/.test(val)){
         alert('请输入数字！');
         $(this).val('');
+        totalPer();
     }else if(parseInt(val) > 100){
         alert('请输入不大于100的数！');
-    }else if(parseInt(val) < 1){
+        $(this).val('');
+    }else if(parseInt(val) <=0){
         alert('成分不能为零！');
+        $(this).val('');
     }else{
         totalPer();
     }
 });
-//鼠标移开 是否新建一个列  和显示保存
+
+
+//成分 鼠标移开 是否新建一个列  和显示保存
 $(document).on('blur','.tansix1  ul li:last input[type=text]',function(){
+});
+
+function componentAdd(){
+   //成分明细弹窗 回车 是否新建一个列  和显示保存
     var total = 0;
-    $('.tansix1  ul li input.compo-per').each(function () {
+    var last_ = $('.tansix1 ul li:last'); //最后一个
+    var name = last_.find('input.compo-name').val();//成分
+    var compoPer =  last_.find('input.compo-per').val();//比例
+    var val = $.trim(compoPer);
+    if(val==0){
+        alert('成分不能为零！');
+        return;
+    }
+    $('.tansix1  ul li input.compo-per').each(function () { //比例不能为0
         var num = $.trim($(this).val());
         console.log(num);
         if(num==''||parseInt(num)<=0){
             num = 0;
-            return false;
+            return ;
         }else{
             num = parseInt(num);
         }
@@ -307,8 +332,7 @@ $(document).on('blur','.tansix1  ul li:last input[type=text]',function(){
     if(total>=100){
         return;
     }
-    var val = $.trim($(this).val());
-    if(val!==''&&parseInt(val)>0&&parseInt(val) < 100){
+    if(val!==''&&parseInt(val)>0&&parseInt(val) < 100 && name!==''){
         var index = $('.tansix1  ul li').size();
         index = parseInt(index) + 1;
         var $li = '<li> <div class="lietext"> <span class="textpxz">成分'+ index +'</span><div class="selectDiv textmall fl"> ' +
@@ -317,11 +341,10 @@ $(document).on('blur','.tansix1  ul li:last input[type=text]',function(){
             ' <p>11</p> <p>22</p> <p>33</p> </div> </div><div class="textmall textmallx2 fl"> ' +
             '<input type="text" value="" class="compo-per" maxlength="3" /> ' +
             '<em class="baifen">%</em> </div><a class="delete">删除</a> </div> <div class="cl"></div> </li>';
-        $(this).parent().parent().parent().after($li);
-
+        last_.after($li);
     }
     ifLastOne();//成分
-});
+}
 //计算成分 百分比总和
 function totalPer() {
     var total = 0;
@@ -330,7 +353,7 @@ function totalPer() {
         console.log(num);
         if(num==''||parseInt(num)<=0){
             num = 0;
-            return false;
+            return ;
         }else{
             num = parseInt(num);
         }
@@ -356,7 +379,6 @@ $('.kusmax .component').click(function(){
 });
 //取消 成分
 $('.tansix1 .dianquexs a.cancle,.tansix1 .baocun a.cancle,.tansix1 .fr').on('click',function () {
-   // $('.tansix1').hide();
     $('.kusmax .component').trigger('click');
 });
 //删除 成分  最后一个 不删除
@@ -365,7 +387,7 @@ $(document).on('click','.tansix1 .lietext a.delete',function () {
     if(length>1){
         $(this).parent().parent().remove();
     }
-    compoOrder();
+    totalPer();
     ifLastOne();
 });
 
@@ -451,7 +473,8 @@ $(document).on('click','.selectDiv .selectBtn',function () {//点击按钮
 
 
 function moveInformFunc(obj) {//弹窗拖动
-    obj.mousedown(function(){
+    var canGragDiv = obj.find('.toptitsix');  //可以拖动的区域
+    canGragDiv.mousedown(function(){
         var boxX=event.x-parseInt(obj.position().left);
         var boxY=event.y-parseInt(obj.position().top);
         $(document).mousemove(function(){
@@ -514,6 +537,7 @@ function  ifProdShow() {
         $('.bottqie .quanxuan').addClass('quanxuanFix');
         $('.chanxinl').addClass('chanxinlFix');
         $('.fabusha').addClass('fabushaFix');
+        $('.qiemallst').addClass('qiemallstFix');
     }else{
         $('.top').removeClass('topFix');
         $('.topbannx').removeClass('topbannxFix');
@@ -523,12 +547,12 @@ function  ifProdShow() {
         $('.bottqie .quanxuan').removeClass('quanxuanFix');
         $('.chanxinl').removeClass('chanxinlFix');
         $('.fabusha').removeClass('fabushaFix');
+        $('.qiemallst').removeClass('qiemallstFix');
     }
 }
 //切换页面时候，执行
 $('.inmaslt ul li').click(function(){
 });
-
 //回顶部
 $('.bust1').click(function(){
     document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -863,16 +887,89 @@ $(document).on('click','.contacts .showtextx1',function() {
     });
     console.log(obj);
 
-
-
 });
 
-//取消  价格设置  库存
+/**库存设置 价格设置
+ *
+ */
+//点击库存 获取选中列表
+$('.tanspan4').click(function(){
+    $('.chuanstvt').show();
+    $('.chuanstvt input').val('');//清空
+    $(this).parent().parent().addClass('selected').siblings().removeClass('selected');
+    //var id = $(this).parent().parent().data('id');
+});
+
+//价格 获取选中列表
+$('.tanspan3').click(function(){
+    $('.chuanpoll').show();
+    $('.chuanpoll input').val('');//清空
+    $(this).parent().parent().addClass('selected').siblings().removeClass('selected');
+    //var id = $(this).parent().parent().data('id');
+});
+
+//保存 库存设置
+$('.chuanstvt .baocun .cur').on('click',function () {
+    var val = $.trim($(this).parent().parent().find('input.ifonput').val());//库存
+    $('.qiemallst ul li.selected .mast1').eq(1).text(val);  //选中的 库存 变化
+    //修改时间
+    var date = new Date();
+    console.log(date);
+    var $day = formatData(date,'yyyy-MM-dd');//转成月日格式
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    var time = hour + ':' + minute;
+    console.log(time);
+    console.log($day);
+    var day = $day + '<br>'+ time;
+    $('.qiemallst ul li.selected .mast3').eq(1).html(day);//修改时间
+});
+
+//保存 价格设置  todo 重量区间 编辑好了保存在哪里？
+$('.chuanpoll .baocun .cur').on('click',function () {
+    var val = $.trim($(this).parent().parent().find('input[name=price]').val());//价格
+    $('.qiemallst ul li.selected .mast1').eq(0).text(val);  //选中的 价格 变化
+    //修改时间
+    var date = new Date();
+    var $day = formatData(date,'yyyy-MM-dd ');//转成月日格式
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    var time = hour + ':' + minute;
+    console.log(time);
+    console.log($day);
+    var day = $day + '<br/>'+ time;
+    $('.qiemallst ul li.selected .mast3').eq(1).html(day);//修改时间
+});
+
+
+/**
+ * 日期格式化
+ * @param  {Date} date   [需要格式化的日期]
+ * @param  {String} format [需要返回的格式 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，
+ *  年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) ]
+ * @return {String}        []
+ */
+var formatData =  function(date, format){
+    var o = {
+        "M+": date.getMonth() + 1, //月份
+        "d+": date.getDate(), //日
+        "h+": date.getHours(), //小时
+        "m+": date.getMinutes(), //分
+        "s+": date.getSeconds(), //秒
+        "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+        "S": date.getMilliseconds() //毫秒
+    };
+    if (/(y+)/.test(format)) format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(format)) format = format.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return format;
+}
+
+//取消  价格设置  和  库存设置
 $('.chuanpoll .setext,.chuanstvt .setext').on('click',function () {
     $(this).parent().parent().hide();
-
+    $(this).parent().parent().find('input').val('');//清空
 });
-
 
 //取消   公司信息 联系人 荣誉
 $('.setext').click(function(){
