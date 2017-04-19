@@ -1461,7 +1461,6 @@
 	height: 40px;
 	line-height: 40px;
 }
-
 .ifonputsp2{
 	width:65px;
 	text-align:left;
@@ -1775,4 +1774,10 @@ input.certiFile{
 }
 .certificate ul li:hover .delete{
 	display: block;
+}
+.kusmax  .Wdate{
+	height:auto;
+}
+.kusmax input.compName{
+	width:520px;
 }

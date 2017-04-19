@@ -19,9 +19,6 @@ $('.M-box3').pagination({
     nextContent:'下页'
 });
 
-//产品价格 输入任意一个后 鼠标移开  则新增一列
-$(document).on('blur','.prod-price:last input',function () {
-});
 
 function priceAdd(){
     //产品价格 输入任意一个后 点击回车  输入框全不为空则新增一列
@@ -48,17 +45,35 @@ $(document).on('click','.prod-price a.delete',function () {
     checkIfLastOne($('.prod-price'));
 });
 
+var x = '';
 $(document).on('keydown',function () {
     if (event.keyCode==13){  //回车键的键值为13
-        priceAdd();//产品价格 全部输入后  点击回车键 也新增一列
-        colorAdd();//色卡分类 全部输入后  点击回车键 也新增一列
-        componentAdd();//成分明细 全部输入后  点击回车键 也新增一列
-
-       // $('.prod-price:last input').trigger('blur');//产品价格  点击回车键 也新增一列
-       // $('.ul-color:last input[type=text]').trigger('blur');//色卡分类
-      //  $('.tansix1  ul li:last input[type=text]').trigger('blur');//成分明细 显示则也添加
+        console.log(x+'x');
+        if(x==1){
+            priceAdd();//产品价格 全部输入后  点击回车键 也新增一列
+        }else if(x==2){
+            colorAdd();//色卡分类 全部输入后  点击回车键 也新增一列
+        }else if(x==3){
+            componentAdd();//成分明细 全部输入后  点击回车键 也新增一列
+        }
+       // priceAdd();//产品价格 全部输入后  点击回车键 也新增一列
+       // colorAdd();//色卡分类 全部输入后  点击回车键 也新增一列
+       // componentAdd();//成分明细 全部输入后  点击回车键 也新增一列
     }
 });
+
+$('.prod-price:last input').on('focus',function(){
+   x = 1;
+});
+
+$('.ul-color:last input[type=text]').on('focus',function(){
+    x = 2;
+});
+
+$('.tansix1 ul li:last input[type=text]').on('focus',function(){
+    x = 3;
+});
+
 
 //色卡分类 上传图片
 $(document).on('change','.ul-color input[type=file]',function () {
@@ -113,9 +128,7 @@ $(document).on('click','.ul-color .delete',function () {
     informFunc('删除成功！');
     checkIfLastOne($('.ul-color'));
 });
-//色卡分类 输入任意一个后 鼠标移开  则新增一列
-$(document).on('blur','.ul-color:last input[type=text]',function () {
-});
+
 function colorAdd() {
     //色卡分类 输入任意一个后 回车 全不为空 则新增一列
     var $ul = '<ul class="ul-color"> <li style="width:163px;"> <input class="ifonput" type="text" /> </li> ' +
@@ -126,7 +139,6 @@ function colorAdd() {
 
     var _this = $(this);
     var ul_ =  $('.ul-color:last ');
-    console.log(ul_);
     var sectVal_1 =  $.trim(ul_.find('input').eq(0).val());
     var sectVal_2 =  $.trim(ul_.find('input').eq(1).val());
     var sectVal_3 =  $.trim(ul_.find('input').eq(2).val());
@@ -138,9 +150,7 @@ function colorAdd() {
 }
 //色卡分类 最后一行 不能删除 变成清除内容的清除按钮 shanpan
 function checkIfLastOne(obj) {
-    console.log('obj'+obj);
    var li_len =  obj.size();
-   console.log(li_len);
    if(li_len<=1){
        if(obj.hasClass('ul-color')){//色卡
            $('.ul-color:last .delete').addClass('emptyBtn').removeClass('delete').find('span').text('清除');
@@ -288,8 +298,8 @@ $(document).on('keyup','.tansix1  ul li input.compo-per',function(){
     if(val!==''&&!/^(\d)*$/.test(val)){
         alert('请输入数字！');
         $(this).val('');
-        totalPer();
-    }else if(parseInt(val) > 100){
+    }
+    if(parseInt(val) > 100){
         alert('请输入不大于100的数！');
         $(this).val('');
     }else if(parseInt(val) <=0){
@@ -298,11 +308,6 @@ $(document).on('keyup','.tansix1  ul li input.compo-per',function(){
     }else{
         totalPer();
     }
-});
-
-
-//成分 鼠标移开 是否新建一个列  和显示保存
-$(document).on('blur','.tansix1  ul li:last input[type=text]',function(){
 });
 
 function componentAdd(){
@@ -329,6 +334,7 @@ function componentAdd(){
     });
     //计算百分比总和
     if(total>=100){
+
         return;
     }
     if(val!==''&&parseInt(val)>0&&parseInt(val) < 100 && name!==''){
@@ -524,7 +530,6 @@ $(window).on("scroll", function(){
     //console.log(top_);
 });
 
-
 function  ifProdShow() {
     //滚动  显示顶部 只在产品管理
     if($('.inmaslt ul li:eq(2)').hasClass('cur')){
@@ -574,6 +579,10 @@ $yemasix.find('.prev').click(function () {
     var totalPage =  parent.find('.totalPage').text();
     if(parseInt(current)>1){
         current--;
+        $(this).removeClass('cur');
+        $yemasix.find('.next').removeClass('cur');
+    }else{
+        $(this).addClass('cur');
     }
     cur.text(current);
     triggerBtmClick(current);//触发底部的分页事件
@@ -586,6 +595,10 @@ $yemasix.find('.next').click(function () {
     var totalPage =  parent.find('.totalPage').text();
     if(parseInt(current) < parseInt(totalPage)){
         current++;
+        $(this).removeClass('cur');
+        $yemasix.find('.prev').removeClass('cur');
+    }else{
+        $(this).addClass('cur');
     }
     cur.text(current);
     triggerBtmClick(current);//触发底部的分页事件
@@ -594,8 +607,6 @@ function triggerBtmClick(current) { //触发底部分页的跳转事件
     $('.M-box3 .jump-ipt').val(current);//跳转输入框
     $('.M-box3 a.jump-btn').trigger('click');
 }
-
-
 
 /**库存设置 价格设置
  *
@@ -1090,6 +1101,12 @@ $(document).on('click','.certificate .delete',function () {
    }
 });
 
+//纱线名称 输入时候的字数变化
+$('.lxinputbox').on('keyup',function () {
+    var length = $(this).val().split('').length;
+    $('.konwen i').text(length);
+});
+
 function informFunc(txt) {//公用 提示弹窗
     $inform.show().text(txt);
     setTimeout(function(){
@@ -1109,4 +1126,6 @@ $(function () {
     moveInformFunc($('.pastmall'))//公司设置弹窗
     getBrandNum();//品牌个数
     ifProdShow();//产品是否滚屏
+
+    $('.totalPage').text(pageCount);
 });

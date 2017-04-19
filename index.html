@@ -10,8 +10,6 @@
 	<link rel="stylesheet" rev="stylesheet" href="style/index.css" type="text/css" />
 </head>
 <body>
-
-
 	<div class="top">
 		<div class="inner">
 			<!-- 欢迎词 -->
@@ -159,20 +157,20 @@
 														<div class="leftdiaxp fl">成立时间</div>
 
 														<div class="kusmax kusmaxs2 kusmaxas3 fl">
-															<input id="d421" class=" startTime" type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate:'%y-%M-%d'})"/>
-
-															<span class="xialap iconfont icon-xiasanjiao-copy"></span>
+															<input id="d421" class="Wdate startTime" type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate:'%y-%M-%d'})"/>
+															<!--<span class="xialap iconfont icon-xiasanjiao-copy"></span>-->
 														</div>
 														<div class="cl"></div>
 													</div>
-
-													<div class="mgbotsix mgbotsix2 fl">
-														<div class="leftdiaxp fl">
-															经营模式
-														</div>
-
+													<div class="selectDiv mgbotsix mgbotsix2 fl">
+														<div class="leftdiaxp fl">经营模式</div>
 														<div class="kusmax kusmaxs2 kusmaxas3 fl">
-															<input type="text" class="busMode" value="">
+															<input type="text" class="selectInp busMode" value="">
+															<span class="selectBtn xialap iconfont icon-xiasanjiao-copy"></span>
+															<div class="selectBox">
+																<p>模式1</p>
+																<p>类型2</p>
+															</div>
 														</div>
 														<div class="cl"></div>
 													</div>
@@ -194,10 +192,9 @@
 														品牌名称
 													</div>
 														<div class="lieopx fl">
-
-															<div class="tianpal">
+														<!--	<div class="tianpal">
 																<a class="addBrand" href="javascript:;">添加品牌</a>
-															</div>
+															</div>-->
 															<div class="bootttian">
 																<div class="putian fl">
 																	<label for="">品牌1</label>
@@ -227,7 +224,6 @@
 
 														<div class="kusmax kusmaxs2 kusmaxas3 fl">
 															<input type="text" class="legalPerson" value="">
-															<span class="xialap iconfont icon-xiasanjiao-copy"></span>
 														</div>
 														<div class="cl"></div>
 													</div>
@@ -527,19 +523,6 @@
 															style="position: absolute;left: 0;top:0;opacity: 0;z-index: 1003;width: 100%;height: 0;">
 												 </a>
 											</li>
-											<li class="rbdn">
-												<label for="male">附件2名称<em>*</em></label>
-									 			 <input class="lxinputx1" type="text" name="picName" >
-											</li>
-
-											<li class="lbdn">
-												<label for="male">上传图片</label>
-									 			 <input class="lxinputx1" type="text" name="sex" >
-									 			 <a class="chuana" href="javascript:;" style="position: relative;">上传图片
-													 <input class="certiFile" type="file" name="certiFile2"
-															style="position: absolute;left: 0;top:0;opacity: 0;z-index: 1003;width: 100%;height: 0;">
-												 </a>
-											</li>
 											<div class="cl"></div>
 										</ul>
 										<div class="cl"></div>
@@ -593,7 +576,7 @@
 									<li>
 										 <label for="male">纱线名称</label>
 							 			 <input class="lxinput lxinputbox" type="text" maxlength="50" name="sex" id="male">
-							 			 <span class="konwen">0/50</span>
+							 			 <span class="konwen"><i>0</i>/50</span>
 									</li>
 									<li class="selectDiv">
 										<label for="female">品牌</label>
@@ -1031,7 +1014,7 @@
 									</div>
 
 									<div class="yemasix fr">
-										<a class="cur prev" href="javascript:;">上一页</a>
+										<a class=" prev" href="javascript:;">上一页</a>
 										<span><em class="currentPage">1</em>/<i class="totalPage">100</i></span>
 										<a class="next" href="javascript:;">下一页</a>
 									</div>

@@ -167,7 +167,7 @@
 				}
 				that.filling(index);
 				typeof opts.callback === 'function' && opts.callback(that);
-                $('.currentPage').text(index);// 另外添加
+                $('.currentPage').text(index);// 自己另外添加
 			});
 			//输入跳转的页码
 			$obj.on('input propertychange','.'+opts.jumpIptCls,function(){
@@ -187,6 +187,7 @@
 		        if(e.keyCode == 13 && $obj.find('.'+opts.jumpIptCls).val()){
 		        	var index = parseInt($obj.find('.'+opts.jumpIptCls).val());
 		            that.filling(index);
+                    $('.currentPage').text(index);// 自己另外添加
 					typeof opts.callback === 'function' && opts.callback(that);
 		        }
 		    });
