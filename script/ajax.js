@@ -956,26 +956,33 @@ $('.contacts .baocun a.cur').click(function(){
 
 });
 
-//编辑联系人  $('ul.colorul')  todo
+//点击编辑按钮  联系人
 $(document).on('click','.contacts .showtextx1',function() {
     $(this).parents('.pastmall').find('.zanwubox').hide();
-    // $(this).parents('.pastmall').find('.mastvt a').hide();
-
     $(this).parents('.pastmall').find('.mastvt a').removeClass('not-allowed');
     $(this).parents('.pastmall').find('.xianboxpl').hide();
     $(this).parents('.pastmall').find('.bianlabox').addClass('cur');
     var $ul = $(this).parent().parent();
     $ul.addClass('selected').siblings().removeClass('selected'); //标记已选中 编辑
     //获取信息添加到编辑div
-    var obj = [];
+    var objArr = [];
     $('.colorul.selected li').not('li:last').each(function () {
         var _this = $(this);
-        obj.push(_this.text());
+        objArr.push(_this.text());
     });
-    console.log(obj);
+    console.log(objArr);
+    var inputs_ = $('.pastmall .sixmall form input');
+    inputs_.eq(0).val(objArr[0]); //联系人
+    //inputs_.eq(1).val(objArr[0]); //性别
+    inputs_.eq(2).val(objArr[1]); //职位
+    inputs_.eq(3).val(objArr[2]); //电话
+    inputs_.eq(4).val(objArr[3]); //手机
+    inputs_.eq(5).val(objArr[4]); //传真
+    inputs_.eq(6).val(objArr[5]); //邮箱
+    inputs_.eq(7).val(objArr[6]); //qq
+    inputs_.eq(8).val(objArr[7]); //微信
 
 });
-
 
 /**取消   公司信息 联系人 荣誉
  *
@@ -984,7 +991,7 @@ $(document).on('click','.contacts .showtextx1',function() {
 $('.compBasic .setext').click(function(){
     if(addCompFlag  == false){//已删除
         $(this).parents().find('.mastvt a').show();
-        $(this).parents().find('.zanwubox').show();
+        $('.compBasic .zanwubox').show();
     }else{
         $('.compBasic .xianboxpl').show();
     }
@@ -1002,7 +1009,6 @@ $('.contacts  .setext').click(function(){
     }
     $(this).parents('.bianlabox').removeClass('cur');
     //$('.sixmall form .inpubox ul li input').val('');//清空
-
 });
 //荣誉  取消
 $('.certificate  .setext').click(function(){

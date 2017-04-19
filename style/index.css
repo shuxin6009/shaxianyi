@@ -1443,7 +1443,7 @@
 	width:445px;
 	border:1px solid #ddd;
 	display: none;
-	position: absolute;
+	position: fixed;
 	left:50%;
 	margin-left: -222px;
 	top:50%;
@@ -1470,7 +1470,7 @@
 	width:595px;
 	border:1px solid #ddd;
 	display: none;
-	position: absolute;
+	position: fixed;
 	left:50%;
 	margin-left: -222px;
 	top:50%;
